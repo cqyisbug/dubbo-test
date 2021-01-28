@@ -1,0 +1,32 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: cqy-test
+  application:
+    name: spring-cloud-consumer
+dubbo:
+  application:
+    name: ${spring.application.name}
+    id: ${dubbo.application.name}
+  registry:
+    address: spring-cloud://${spring.cloud.nacos.discovery.server-addr}
+    group: cqy-test
+  cloud:
+    subscribed-services: spring-cloud-provider
+  protocol:
+    name: dubbo
+    port: -1
+  provider:
+    register: false
+  consumer:
+    check: false
+    retries: -1
+    version: 1.4.5
+    validation: true
+    timeout: 10000
+    group: cqy-test
+  config-center:
+    namespace: cqy-test
+    group: cqy-test
